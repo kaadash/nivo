@@ -25,6 +25,9 @@ const Axes = ({
     width,
     height,
 
+    axisFormat,
+    format,
+
     // axes
     top,
     right,
@@ -60,6 +63,8 @@ const Axes = ({
                         width={width}
                         height={height}
                         position={position}
+                        axisFormat={axisFormat}
+                        format={format}
                         scale={scale}
                         animate={animate}
                         motionDamping={motionDamping}

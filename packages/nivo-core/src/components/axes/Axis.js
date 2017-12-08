@@ -63,6 +63,7 @@ const Axis = ({
     tickPadding,
     tickRotation,
     format,
+    axisFormat,
 
     // legend
     legend: _legend,
@@ -194,6 +195,7 @@ const Axis = ({
                                 rotate={tickRotation}
                                 textX={tick.textX}
                                 textY={tick.textY}
+                                axisFormat={axisFormat}
                                 textBaseline={textBaseline}
                                 textAnchor={textAlign}
                                 theme={theme}

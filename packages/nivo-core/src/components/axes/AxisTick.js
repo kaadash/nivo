@@ -32,6 +32,7 @@ export default class AxisTick extends Component {
             opacity,
             rotate,
             format,
+            axisFormat,
             lineX,
             lineY,
             onClick,
@@ -44,7 +45,7 @@ export default class AxisTick extends Component {
 
         let value = _value
         if (format !== undefined) {
-            value = format(value)
+          value = format(value, axisFormat)
         }
 
         let gStyle = { opacity }
