@@ -18,7 +18,15 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import { TableTooltip } from '@nivo/core'
 
 const Chip = ({ color }) => (
-    <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
+  <span
+      style={{
+          display: 'block',
+          borderRadius: '50%',
+          width: '6px',
+          height: '6px',
+          background: color,
+      }}
+  />
 )
 
 const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
@@ -63,17 +71,24 @@ const enhance = compose(
             !tooltipFormat || isFunction(tooltipFormat) ? tooltipFormat : d3Format(tooltipFormat)
         const hasValues = slice.points.some(p => p.value !== null)
 
+        const prepareValue = (value, preparedValue) => {
+            if (preparedValue) {
+              return preparedValue;
+            }
+            return format ? format(value) : value;
+        }
+
         return {
             tooltip: hasValues ? (
                 <TableTooltip
                     theme={theme}
                     rows={slice.points
                         .filter(p => p.value !== null)
-                        .map(p => [
-                            <Chip color={p.color} />,
-                            p.id,
-                            format ? format(p.value) : p.value,
-                        ])}
+                      .map(p => [
+                          <Chip color={p.color} />,
+                          p.id,
+                          prepareValue(p.value, p.preparedValue),
+                      ])}
                 />
             ) : null,
         }

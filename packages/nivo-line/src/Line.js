@@ -224,6 +224,7 @@ const enhance = compose(
                         value: line.points[i].value,
                         y: line.points[i].y,
                         color: line.color,
+                        preparedValue: line.points[i].preparedValue,
                     })),
                     'y'
                 )
