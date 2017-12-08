@@ -15,7 +15,7 @@ import enhance from './enhance'
 import { BarPropTypes } from './props'
 import { Container, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/core'
-import { CartesianMarkers } from '@nivo/core'
+import { CartesianMarkers, computeAxisTicks } from '@nivo/core'
 
 const barWillEnterHorizontal = ({ style }) => ({
     x: style.x.val,
@@ -149,6 +149,19 @@ const Bar = ({
         dataKey: 'data',
         targetKey: 'data.fill',
     })
+    const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
+        width,
+        height,
+        scale: result.xScale,
+        position: 'bottom',
+        // tickValues,
+        // tickCount,
+        // tickSize,
+        // tickPadding,
+        // tickRotation,
+    })
+    console.log(ticks, margin);
+
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -218,43 +231,67 @@ const Bar = ({
                     )
                 }
 
+
+                const renderTicks = () => {
+                    return ticks.map(({x, value}) => {
+                       return (
+                            <div
+                                className="bar-chart__axis"
+                                style={{
+                                    transform: `translateX(${x + margin.left}px)`,
+                                    top: `${y + 15}px`
+                                }}
+                            >
+                                <div className="bar-chart__axis-item">
+                                    <div>
+                                        <div>{value}</div>
+                                    </div>
+                                </div>
+                            </div>
+                       ) ;
+                    });
+                }
+
                 return (
-                    <SvgWrapper
-                        width={outerWidth}
-                        height={outerHeight}
-                        margin={margin}
-                        defs={boundDefs}
-                    >
-                        <Grid
-                            theme={theme}
-                            width={width}
-                            height={height}
-                            xScale={enableGridX ? result.xScale : null}
-                            yScale={enableGridY ? result.yScale : null}
-                            {...motionProps}
-                        />
-                        <Axes
-                            xScale={result.xScale}
-                            yScale={result.yScale}
-                            width={width}
-                            height={height}
-                            theme={theme}
-                            top={axisTop}
-                            right={axisRight}
-                            bottom={axisBottom}
-                            left={axisLeft}
-                            {...motionProps}
-                        />
-                        {bars}
-                        <CartesianMarkers
-                            markers={markers}
-                            width={width}
-                            height={height}
-                            xScale={result.xScale}
-                            yScale={result.yScale}
-                            theme={theme}
-                        />
-                    </SvgWrapper>
+                    <div>
+                        <SvgWrapper
+                            width={outerWidth}
+                            height={outerHeight}
+                            margin={margin}
+                            defs={boundDefs}
+                        >
+                            <Grid
+                                theme={theme}
+                                width={width}
+                                height={height}
+                                xScale={enableGridX ? result.xScale : null}
+                                yScale={enableGridY ? result.yScale : null}
+                                {...motionProps}
+                            />
+                            <Axes
+                                xScale={result.xScale}
+                                yScale={result.yScale}
+                                width={width}
+                                height={height}
+                                theme={theme}
+                                top={axisTop}
+                                right={axisRight}
+                                bottom={axisBottom}
+                                left={axisLeft}
+                                {...motionProps}
+                            />
+                            {bars}
+                            <CartesianMarkers
+                                markers={markers}
+                                width={width}
+                                height={height}
+                                xScale={result.xScale}
+                                yScale={result.yScale}
+                                theme={theme}
+                            />
+                        </SvgWrapper>
+                        {renderTicks()}
+                    </div>
                 )
             }}
         </Container>

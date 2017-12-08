@@ -9,8 +9,8 @@ const Bar = () => (
     <ResponsiveBar
       margin={{
         top: 1.5,
-        right: 10,
-        bottom: 80,
+        right: 0,
+        bottom: 2,
         left: 40,
       }}
       padding={0.2}

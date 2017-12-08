@@ -1,11 +1,28 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
+.bar-chart__axis {
+  display: block;
+  font-size: 11px;
+  position: absolute;
+}
+
+.bar-chart__axis-item {
+  transform: translateX(-50%);
+}
+.bar-chart__axis-item > div {
+  max-width: 30px;
+  text-align: center;
+}
+
+img {
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+}
+
+
 
 .App-header {
   background-color: #222;

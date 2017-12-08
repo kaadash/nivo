@@ -55,7 +55,6 @@ const Axis = ({
     width,
     height,
     position: _position,
-    orient,
 
     // ticks
     tickValues,
