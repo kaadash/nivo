@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range, min, max } from 'lodash'
-import { scaleLinear } from 'd3-scale'
-import { getIndexedScale } from './common'
+import {range, min, max} from 'lodash'
+import {scaleLinear} from 'd3-scale'
+import {getIndexedScale} from './common'
 
 /**
  * Generates scale for grouped bar chart.
@@ -45,6 +45,8 @@ export const getGroupedScale = (data, keys, _minValue, _maxValue, range) => {
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {Array.<Object>} keyNames
+ * @param {Array.<Object>} templates
  * @param {number}         minValue
  * @param {number}         maxValue
  * @param {boolean}        reverse
@@ -60,6 +62,8 @@ export const generateVerticalGroupedBars = ({
     getIndex,
     keys,
     minValue,
+    keyNames,
+    templates,
     maxValue,
     reverse,
     width,
@@ -89,12 +93,15 @@ export const generateVerticalGroupedBars = ({
                 const x = xScale(getIndex(data[index])) + barWidth * i + innerPadding * i
                 const y = getY(data[index][key])
                 const barHeight = getHeight(data[index][key], y)
+                const template = templates[index];
 
                 if (barWidth > 0 && barHeight > 0) {
                     const barData = {
                         id: key,
                         value: data[index][key],
                         index,
+                        template,
+                        keyNames,
                         indexValue: getIndex(data[index]),
                         data: data[index],
                     }
@@ -113,7 +120,7 @@ export const generateVerticalGroupedBars = ({
         })
     }
 
-    return { xScale, yScale, bars }
+  return { xScale, yScale, bars, groupBarsWidth }
 }
 
 /**
@@ -122,6 +129,7 @@ export const generateVerticalGroupedBars = ({
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {Array.<Object>} keyNames
  * @param {number}         minValue
  * @param {number}         maxValue
  * @param {boolean}        reverse
@@ -138,6 +146,7 @@ export const generateHorizontalGroupedBars = ({
     keys,
     minValue,
     maxValue,
+    keyNames,
     reverse,
     width,
     height,
@@ -172,6 +181,8 @@ export const generateHorizontalGroupedBars = ({
                         id: key,
                         value: data[index][key],
                         index,
+                        keyName: keyNames[key],
+                        keyNames,
                         indexValue: getIndex(data[index]),
                         data: data[index],
                     }
