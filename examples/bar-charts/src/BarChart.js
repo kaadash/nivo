@@ -20,6 +20,7 @@ const Bar = () => (
       enableGridY={false}
       keys={['rock', 'jazz', 'hip-hop', 'reggae', 'folk']}
       colors={colors}
+      enableTemplates={true}
       groupMode={'grouped'}
       enableLabel={false}
       isInteractive={true}

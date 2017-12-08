@@ -49,6 +49,8 @@ const Bar = ({
     data,
     getIndex,
     keys,
+    templates,
+    enableTemplates,
 
     groupMode,
     layout,
@@ -232,8 +234,8 @@ const Bar = ({
                 }
 
 
-                const renderTicks = () => {
-                    return ticks.map(({x, value}) => {
+                const renderTicks = (templates) => {
+                    return ticks.map(({x}, index) => {
                        return (
                             <div
                                 className="bar-chart__axis"
@@ -244,7 +246,7 @@ const Bar = ({
                             >
                                 <div className="bar-chart__axis-item">
                                     <div>
-                                        <div>{value}</div>
+                                        <div>{templates[index]}</div>
                                     </div>
                                 </div>
                             </div>
@@ -272,6 +274,7 @@ const Bar = ({
                                 xScale={result.xScale}
                                 yScale={result.yScale}
                                 width={width}
+                                enableTemplates={enableTemplates}
                                 height={height}
                                 theme={theme}
                                 top={axisTop}
@@ -290,7 +293,7 @@ const Bar = ({
                                 theme={theme}
                             />
                         </SvgWrapper>
-                        {renderTicks()}
+                        {enableTemplates ? renderTicks(templates) : ''}
                     </div>
                 )
             }}

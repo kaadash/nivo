@@ -99,6 +99,7 @@ export const BarDefaultProps = {
 
     defs: [],
     fill: [],
+    templates: [],
     borderRadius: 0,
     borderWidth: 0,
     borderColor: 'inherit',

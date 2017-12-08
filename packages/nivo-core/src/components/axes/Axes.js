@@ -19,7 +19,7 @@ const positions = [...horizontalPositions, ...verticalPositions]
 
 const Axes = ({
     // generic
-
+    enableTemplates,
     xScale,
     yScale,
     width,
@@ -47,6 +47,8 @@ const Axes = ({
                 const axis = axes[position]
 
                 if (!axis) return null
+
+                if (enableTemplates && position === 'bottom') return null
 
                 const scale = horizontalPositions.includes(position) ? xScale : yScale
 
