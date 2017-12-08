@@ -44,6 +44,8 @@ export const getStackedScale = (data, _minValue, _maxValue, range) => {
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {Array.<Object>} keyNames
+ * @param {Array.<Object>} templates
  * @param {number}         minValue
  * @param {number}         maxValue
  * @param {boolean}        reverse
@@ -59,6 +61,8 @@ export const generateVerticalStackedBars = ({
     getIndex,
     keys,
     minValue,
+    keyNames,
+    templates,
     maxValue,
     reverse,
     width,
@@ -102,6 +106,9 @@ export const generateVerticalStackedBars = ({
                     const barData = {
                         id: stackedDataItem.key,
                         value: d.data[stackedDataItem.key],
+                        keyNames,
+                        keyName: keyNames[stackedDataItem.key],
+                        template: templates[i],
                         index: i,
                         indexValue: index,
                         data: d.data,
@@ -121,7 +128,7 @@ export const generateVerticalStackedBars = ({
         })
     }
 
-    return { xScale, yScale, bars }
+    return { xScale, yScale, bars, groupBarsWidth: barWidth }
 }
 
 /**
@@ -130,6 +137,7 @@ export const generateVerticalStackedBars = ({
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {Array.<Object>} keyNames
  * @param {number}         minValue
  * @param {number}         maxValue
  * @param {boolean}        reverse
@@ -150,6 +158,7 @@ export const generateHorizontalStackedBars = ({
     width,
     height,
     getColor,
+    keyNames,
     padding = 0,
     innerPadding = 0,
 }) => {
@@ -181,6 +190,8 @@ export const generateHorizontalStackedBars = ({
                     id: stackedDataItem.key,
                     value: d.data[stackedDataItem.key],
                     index: i,
+                    keyName: keyNames[stackedDataItem.key],
+                    keyNames,
                     indexValue: index,
                     data: d.data,
                 }
