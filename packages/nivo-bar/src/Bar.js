@@ -112,6 +112,7 @@ const Bar = ({
         data,
         getIndex,
         keys,
+        templates,
         minValue,
         maxValue,
         width,
@@ -151,18 +152,12 @@ const Bar = ({
         dataKey: 'data',
         targetKey: 'data.fill',
     })
-    const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
+    const { y, ticks } = computeAxisTicks({
         width,
         height,
         scale: result.xScale,
         position: 'bottom',
-        // tickValues,
-        // tickCount,
-        // tickSize,
-        // tickPadding,
-        // tickRotation,
     })
-    console.log(ticks, margin);
 
 
     return (
@@ -239,6 +234,7 @@ const Bar = ({
                        return (
                             <div
                                 className="bar-chart__axis"
+                                key={x}
                                 style={{
                                     transform: `translateX(${x + margin.left}px)`,
                                     top: `${y + 15}px`

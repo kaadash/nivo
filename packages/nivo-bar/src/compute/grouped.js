@@ -75,7 +75,7 @@ export const generateVerticalGroupedBars = ({
     const xScale = getIndexedScale(data, getIndex, [0, width], padding)
     const yRange = reverse ? [0, height] : [height, 0]
     const yScale = getGroupedScale(data, keys, minValue, maxValue, yRange)
-
+    const groupBarsWidth = xScale.bandwidth();
     const barWidth = (xScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
     const yRef = yScale(0)
 
