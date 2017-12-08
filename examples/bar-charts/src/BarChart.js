@@ -23,6 +23,7 @@ const Bar = () => (
       enableTemplates={true}
       groupMode={'grouped'}
       enableLabel={false}
+      tooltipFormat={(value) => value}
       isInteractive={true}
       animate={false}
     />

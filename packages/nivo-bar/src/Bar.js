@@ -13,9 +13,11 @@ import { generateGroupedBars, generateStackedBars } from './compute'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { BarPropTypes } from './props'
+import BarSlices from './BarSlices'
 import { Container, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/core'
 import { CartesianMarkers, computeAxisTicks } from '@nivo/core'
+import { map, groupBy } from 'lodash';
 
 const barWillEnterHorizontal = ({ style }) => ({
     x: style.x.val,
@@ -44,6 +46,10 @@ const barWillLeaveVertical = springConfig => ({ style }) => ({
     width: style.width,
     height: spring(0, springConfig),
 })
+
+const prepareSlices = bars => {
+  return map(groupBy(bars, bar => bar.data.indexValue), value => value)
+}
 
 const Bar = ({
     data,
@@ -159,6 +165,7 @@ const Bar = ({
         position: 'bottom',
     })
 
+    const slices = prepareSlices(result.bars)
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -280,6 +287,20 @@ const Bar = ({
                                 {...motionProps}
                             />
                             {bars}
+                            {
+                                layout === 'vertical'
+                                  ?
+                                      <BarSlices
+                                        theme={theme}
+                                        slices={slices}
+                                        showTooltip={showTooltip}
+                                        hideTooltip={hideTooltip}
+                                        width={result.groupBarsWidth}
+                                        height={height}
+                                        tooltipFormat={tooltipFormat}
+                                      />
+                                  : ''
+                            }
                             <CartesianMarkers
                                 markers={markers}
                                 width={width}
