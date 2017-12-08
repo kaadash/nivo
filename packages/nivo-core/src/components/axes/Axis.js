@@ -55,6 +55,7 @@ const Axis = ({
     width,
     height,
     position: _position,
+    orient,
 
     // ticks
     tickValues,
@@ -140,12 +141,12 @@ const Axis = ({
     if (!animate) {
         tickElements = (
             <g>
-                {ticks.map(tick => (
+                {ticks.map((tick, index) => (
                     <AxisTick
                         key={tick.key}
                         value={tick.key}
                         format={format}
-                        lineX={tick.lineX}
+                        lineX={index === 0 && _position === 'left' ? width : tick.lineX}
                         lineY={tick.lineY}
                         rotate={tickRotation}
                         textX={tick.textX}
@@ -211,6 +212,9 @@ const Axis = ({
         <g transform={`translate(${x},${y})`}>
             {legend}
             {tickElements}
+            {
+                _position === 'left' ? (<line x1="0" x2="0" y1="0" y2={height} />) : ''
+            }
         </g>
     )
 }

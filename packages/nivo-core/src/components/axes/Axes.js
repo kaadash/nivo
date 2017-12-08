@@ -19,6 +19,7 @@ const positions = [...horizontalPositions, ...verticalPositions]
 
 const Axes = ({
     // generic
+
     xScale,
     yScale,
     width,
