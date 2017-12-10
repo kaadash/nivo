@@ -55,6 +55,7 @@ const Bar = ({
     data,
     getIndex,
     keys,
+    keyNames,
     templates,
     enableTemplates,
 
@@ -118,6 +119,7 @@ const Bar = ({
         data,
         getIndex,
         keys,
+        keyNames,
         templates,
         minValue,
         maxValue,
@@ -166,6 +168,7 @@ const Bar = ({
     })
 
     const slices = prepareSlices(result.bars)
+    console.log(slices);
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>

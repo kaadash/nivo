@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@nivo/bar": "^0.33.0-4",
+    "lodash": "^4.17.4",
     "nivo": "^0.31.0",
     "nivo-generators": "^0.9.3",
     "react": "^16.2.0",

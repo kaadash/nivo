@@ -102,6 +102,7 @@ export const generateVerticalGroupedBars = ({
                         index,
                         template,
                         keyNames,
+                        keyName: keyNames[key],
                         indexValue: getIndex(data[index]),
                         data: data[index],
                     }
