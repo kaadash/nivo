@@ -18,8 +18,8 @@ const BarSlices = ({ slices, height, width, theme, tooltipFormat, showTooltip, h
                 <line
                     stroke="#e8e9e8"
                     style={{shapeRendering: 'crispEdges'}}
-                    x1={slice[0].x}
-                    x2={slice[0].x}
+                    x1={slice.x}
+                    x2={slice.x}
                     y1={0}
                     y2={height}
                 />
@@ -28,7 +28,7 @@ const BarSlices = ({ slices, height, width, theme, tooltipFormat, showTooltip, h
                     theme={theme}
                     showTooltip={showTooltip}
                     hideTooltip={hideTooltip}
-                    x={slice[0].x}
+                    x={slice.x}
                     width={width}
                     height={height}
                     tooltipFormat={tooltipFormat}

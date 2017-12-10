@@ -50,13 +50,13 @@ const enhance = compose(
     withPropsOnChange(['slice', 'theme', 'tooltipFormat'], ({ slice, theme, tooltipFormat }) => {
         return {
             tooltip: <TableTooltip theme={theme}
-                                   template={slice[0].data.template}
+                                   template={slice.data.template}
                                    rows={
-              slice.map(({ data, color }) => {
+              slice.tooltipData.map(({ name, value, format, color }) => {
                 return [
                   <Chip color={color} />,
-                  data.keyName.name,
-                  tooltipFormat ? tooltipFormat(data.value, data.keyName.format) : data.value
+                  name,
+                  tooltipFormat ? tooltipFormat(value, format) : value
                 ];
               })
             } />,

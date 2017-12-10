@@ -13,8 +13,6 @@ const keyNames = dataKeys.reduce((keyNameAcc, name) => {
   };
   return keyNameAcc;
 }, {});
-console.log(data, dataKeys, keyNames);
-
 
 const Bar = () => (
   <div style={{marginTop: '80px', marginLeft: '50px', height: '400px', minWidth: '600px'}}>

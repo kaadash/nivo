@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import {range, min, max} from 'lodash'
+import {range, min, max, map, isNumber} from 'lodash'
 import {scaleLinear} from 'd3-scale'
 import {getIndexedScale} from './common'
 
@@ -75,18 +75,19 @@ export const generateVerticalGroupedBars = ({
     const xScale = getIndexedScale(data, getIndex, [0, width], padding)
     const yRange = reverse ? [0, height] : [height, 0]
     const yScale = getGroupedScale(data, keys, minValue, maxValue, yRange)
-    const groupBarsWidth = xScale.bandwidth();
     const barWidth = (xScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
     const yRef = yScale(0)
 
-    let getY = d => (d > 0 ? yScale(d) : yRef)
+  let getY = d => (d > 0 ? yScale(d) : yRef)
     let getHeight = (d, y) => (d > 0 ? yRef - y : yScale(d) - yRef)
     if (reverse) {
         getY = d => (d < 0 ? yScale(d) : yRef)
         getHeight = (d, y) => (d < 0 ? yRef - y : yScale(d) - yRef)
     }
+    const paddingInPixel = width * padding / xScale.domain().length;
 
     const bars = []
+    const slices = []
     if (barWidth > 0) {
         keys.forEach((key, i) => {
             range(xScale.domain().length).forEach(index => {
@@ -116,12 +117,36 @@ export const generateVerticalGroupedBars = ({
                         height: barHeight,
                         color: getColor(barData),
                     })
+                    if (i === 0) {
+                        const tooltipData = map(keyNames, keyName => {
+                            return {
+                                name: keyName.name,
+                                value: data[index][keyName.name],
+                                format: keyName.format,
+                                color: getColor(Object.assign({}, data[index][keyName.name], {
+                                    id: keyName.name,
+                                }))
+                            };
+                        }).filter(({value}) => {
+                            return isNumber(value);
+                        });
+                        slices.push({
+                          key: `${key}.${barData.indexValue}`,
+                          data: barData,
+                          tooltipData,
+                          x: x - paddingInPixel / 2,
+                          y,
+                          width: (barWidth * tooltipData.length) + paddingInPixel,
+                          height: barHeight,
+                          color: getColor(barData),
+                        })
+                    }
                 }
             })
         })
     }
 
-  return { xScale, yScale, bars, groupBarsWidth }
+  return { xScale, yScale, bars, slices }
 }
 
 /**

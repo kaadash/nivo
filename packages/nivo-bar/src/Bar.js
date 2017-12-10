@@ -131,7 +131,7 @@ const Bar = ({
     }
     const result =
         groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
-
+    console.log(result.bars, result.slices);
     const motionProps = {
         animate,
         motionDamping,
@@ -168,7 +168,6 @@ const Bar = ({
     })
 
     const slices = prepareSlices(result.bars)
-    console.log(slices);
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -295,10 +294,10 @@ const Bar = ({
                                   ?
                                       <BarSlices
                                         theme={theme}
-                                        slices={slices}
+                                        slices={result.slices}
                                         showTooltip={showTooltip}
                                         hideTooltip={hideTooltip}
-                                        width={result.groupBarsWidth}
+                                        width={result.slices[0].width}
                                         height={height}
                                         tooltipFormat={tooltipFormat}
                                       />
